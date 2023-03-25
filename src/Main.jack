@@ -9,6 +9,7 @@ class Main {
         do board.drawBoard();
         do board.drawMove(1, 1, true);
         do board.drawMove(1, 2, false);
+        do board.drawMove(1, 2, true);
 		
 		return;
 	}

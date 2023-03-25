@@ -14,6 +14,7 @@ class Board {
 		let cellPixelSize = boardPixelSize/size;
         let totalCellCount = size*size;
 		let boardArray = Array.new(totalCellCount);
+        do clearBoard();
 		return this;
 	}
 
@@ -29,7 +30,7 @@ class Board {
 		var int i;
 		let freeCellCount = totalCellCount;
 		while(i<totalCellCount) {
-			let boardArray[i] = 0;
+			let boardArray[i] = false;
 			let i = i + 1;
 		}
 		return;
@@ -54,8 +55,13 @@ class Board {
 		return;
 	}
 
-    method void drawMove(int row, int col, boolean isCross) {
+    method boolean drawMove(int row, int col, boolean isCross) {
 		var int xl,yt;
+
+        if(~isCellFree(row, col)) {
+			return false;
+		} 
+
 		let xl = colToX(col) + ((cellPixelSize-signSize)/2);
 		let yt = rowToY(row) + ((cellPixelSize-signSize)/2);
         if (isCross) {
@@ -63,7 +69,10 @@ class Board {
         } else {
             do drawZero(xl,yt);
         }
-		return;
+
+        let boardArray[row*boardSize+col] = true;
+
+		return true;
 	}
 
 	method int rowToY(int r) {
@@ -102,5 +111,9 @@ class Board {
 		do Screen.setColor(true);
 		return;
 	}   
+
+	method boolean isCellFree(int row, int col) {
+		return ~boardArray[row*boardSize+col];
+	}
 
 }

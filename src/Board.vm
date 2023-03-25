@@ -26,6 +26,9 @@ push this 7
 call Array.new 1
 pop this 0
 push pointer 0
+call Board.clearBoard 1
+pop temp 0
+push pointer 0
 return
 function Board.dispose 0
 push argument 0
@@ -144,6 +147,17 @@ function Board.drawMove 2
 push argument 0
 pop pointer 0
 push pointer 0
+push argument 1
+push argument 2
+call Board.isCellFree 3
+not
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+return
+label IF_FALSE0
+push pointer 0
 push argument 2
 call Board.colToX 2
 push this 6
@@ -164,23 +178,37 @@ call Math.divide 2
 add
 pop local 1
 push argument 3
-if-goto IF_TRUE0
-goto IF_FALSE0
-label IF_TRUE0
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
 push pointer 0
 push local 0
 push local 1
 call Board.drawCross 3
 pop temp 0
-goto IF_END0
-label IF_FALSE0
+goto IF_END1
+label IF_FALSE1
 push pointer 0
 push local 0
 push local 1
 call Board.drawZero 3
 pop temp 0
-label IF_END0
+label IF_END1
+push argument 1
+push this 3
+call Math.multiply 2
+push argument 2
+add
+push this 0
+add
 push constant 0
+not
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 0
+not
 return
 function Board.rowToY 0
 push argument 0
@@ -319,4 +347,18 @@ not
 call Screen.setColor 1
 pop temp 0
 push constant 0
+return
+function Board.isCellFree 0
+push argument 0
+pop pointer 0
+push argument 1
+push this 3
+call Math.multiply 2
+push argument 2
+add
+push this 0
+add
+pop pointer 1
+push that 0
+not
 return
