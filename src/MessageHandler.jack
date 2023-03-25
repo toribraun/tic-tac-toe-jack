@@ -1,5 +1,6 @@
 class MessageHandler {
-    static int startCursorRow, startCursorColumn, zeroCode, nineCode, enterCode;
+    static int startCursorRow, startCursorColumn;
+	static char zeroCode, nineCode, enterCode;
 	static String emptyMessage;
 
     function void init() {
