@@ -8,13 +8,12 @@ class Game {
 
     function int takeAStep(int player) {
         // todo
+        return;
     }
 
     function void startGame() {
         let digit = do MessageHandler.readDigitInput("Press 3 to start the game on board 3x3! Press 4 to start the game on board 4x4.. Maximum size 9x9!")
         let board = Board(digit)
-        while (true) {
-            board.
-        }
+        return;
     }
 }

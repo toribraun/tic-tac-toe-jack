@@ -7,11 +7,7 @@ class MessageHandler {
 		let startCursorColumn = 1;
         let zeroCode = 47;
         let nineCode = 58;
-<<<<<<< HEAD
-        let enterCode = 228; // boolshit, need in change
-=======
         let enterCode = 128;
->>>>>>> 17da4b85d35919ed27d312e1ed401461fdf227da
         let emptyMessage = "                                                 ";
 		return;
 	}
@@ -34,13 +30,13 @@ class MessageHandler {
     // Reads player input. Input should be a digit.
     function int readDigitInput(String gameMessage) {
 		var char character;
-		do MessageHandler.eraseMessage();		
+		do MessageHandler.eraseMessages();		
 		while(true) {
 			do Output.moveCursor(startCursorRow, startCursorColumn);
 			do Output.printString(gameMessage);
 			let character = Keyboard.readChar();
 
-			if(((character>zeroCode) & (character<nineCode))) {
+			if(((character>47) & (character<58))) {
 				do gameMessage.dispose();
 				return character;
 			}
@@ -55,13 +51,13 @@ class MessageHandler {
 	// Reads player input. Input should be an Enter.
     function int readEnterInput(String gameMessage) {
 		var char character;
-		do MessageHandler.eraseMessage();		
+		do MessageHandler.eraseMessages();		
 		while(true) {
 			do Output.moveCursor(startCursorRow, startCursorColumn);
 			do Output.printString(gameMessage);
 			let character = Keyboard.readChar();
 
-			if(character=enterCode) {
+			if(character=128) {
 				do gameMessage.dispose();
 				return character;
 			}
