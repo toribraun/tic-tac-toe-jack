@@ -9,7 +9,10 @@ push constant 58
 pop static 3
 push constant 128
 pop static 4
-push constant 49
+push constant 0
+return
+function MessageHandler.eraseMessages 0
+push constant 29
 call String.new 1
 push constant 32
 call String.appendChar 2
@@ -69,56 +72,16 @@ push constant 32
 call String.appendChar 2
 push constant 32
 call String.appendChar 2
-push constant 32
-call String.appendChar 2
-push constant 32
-call String.appendChar 2
-push constant 32
-call String.appendChar 2
-push constant 32
-call String.appendChar 2
-push constant 32
-call String.appendChar 2
-push constant 32
-call String.appendChar 2
-push constant 32
-call String.appendChar 2
-push constant 32
-call String.appendChar 2
-push constant 32
-call String.appendChar 2
-push constant 32
-call String.appendChar 2
-push constant 32
-call String.appendChar 2
-push constant 32
-call String.appendChar 2
-push constant 32
-call String.appendChar 2
-push constant 32
-call String.appendChar 2
-push constant 32
-call String.appendChar 2
-push constant 32
-call String.appendChar 2
-push constant 32
-call String.appendChar 2
-push constant 32
-call String.appendChar 2
-push constant 32
-call String.appendChar 2
-push constant 32
-call String.appendChar 2
 pop static 5
-push constant 0
-return
-function MessageHandler.eraseMessages 1
 push static 0
 push static 1
 call Output.moveCursor 2
 pop temp 0
 push static 5
 call Output.printString 1
+pop temp 0
+push static 5
+call String.dispose 1
 pop temp 0
 push constant 0
 return
@@ -168,6 +131,8 @@ push argument 0
 call String.dispose 1
 pop temp 0
 push local 0
+push constant 48
+sub
 return
 goto IF_END0
 label IF_FALSE0

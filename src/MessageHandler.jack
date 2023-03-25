@@ -1,7 +1,7 @@
 class MessageHandler {
     static int startCursorRow, startCursorColumn;
 	static char zeroCode, nineCode, enterCode;
-	static String emptyMessage;
+	static String emptyString;
 
     function void init() {
 		let startCursorRow = 1;
@@ -13,7 +13,7 @@ class MessageHandler {
 	}
 
     function void eraseMessages() {
-        var String emptyString = "                             ";
+        let emptyString = "                             ";
 		do Output.moveCursor(startCursorRow, startCursorColumn);
 		do Output.printString(emptyString);
 		do emptyString.dispose();
@@ -39,7 +39,7 @@ class MessageHandler {
 
 			if(((character>47) & (character<58))) {
 				do gameMessage.dispose();
-				return character;
+				return character-48;
 			}
             else {
                 do Output.printString("Don't use illegal symbols! Only digits (0 to 9) allowed!");
