@@ -1,0 +1,31 @@
+class Zero {
+	field int width, height;
+	
+	constructor Zero new() {
+		let width = 16;
+	    let height = 16;
+		
+		return this;
+	}
+
+    method int getHeight() {
+		return height;
+	}
+	
+	method int getWidth() {
+		return width;
+	}
+
+	method void draw(int x, int y) {
+		var int rOut,rIn,t;
+		let t = 2;
+		let rOut = width/2;
+		let rIn = rOut-t;
+		
+		do Screen.drawCircle(x+rOut,y+rOut,rOut);
+		do Screen.setColor(false);
+		do Screen.drawCircle(x+rOut,y+rOut,rIn);
+		do Screen.setColor(true);
+		return;
+	}
+}

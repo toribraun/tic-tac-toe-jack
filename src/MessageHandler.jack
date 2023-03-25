@@ -7,7 +7,7 @@ class MessageHandler {
         let zeroCode = 47;
         let nineCode = 58;
         let enterCode = 228; // boolshit, need in change
-        let emptyMessage = "                                                 "
+        let emptyMessage = "                                                 ";
 		return;
 	}
 

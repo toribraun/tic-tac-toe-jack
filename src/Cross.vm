@@ -1,0 +1,100 @@
+function Cross.new 0
+push constant 2
+call Memory.alloc 1
+pop pointer 0
+push constant 16
+pop this 0
+push constant 16
+pop this 1
+push pointer 0
+return
+function Cross.getHeight 0
+push argument 0
+pop pointer 0
+push this 1
+return
+function Cross.getWidth 0
+push argument 0
+pop pointer 0
+push this 0
+return
+function Cross.draw 2
+push argument 0
+pop pointer 0
+push constant 1
+pop local 0
+push local 0
+push constant 1
+sub
+pop local 1
+label WHILE_EXP0
+push local 1
+push constant 0
+lt
+not
+not
+if-goto WHILE_END0
+push argument 1
+push argument 2
+push this 1
+add
+push local 1
+sub
+push argument 1
+push this 0
+add
+push local 1
+sub
+push argument 2
+call Screen.drawLine 4
+pop temp 0
+push argument 1
+push local 1
+add
+push argument 2
+push this 1
+add
+push argument 1
+push this 0
+add
+push argument 2
+push local 1
+add
+call Screen.drawLine 4
+pop temp 0
+push argument 1
+push local 1
+add
+push argument 2
+push argument 1
+push this 0
+add
+push argument 2
+push this 1
+add
+push local 1
+sub
+call Screen.drawLine 4
+pop temp 0
+push argument 1
+push argument 2
+push local 1
+add
+push argument 1
+push this 0
+add
+push local 1
+sub
+push argument 2
+push this 1
+add
+call Screen.drawLine 4
+pop temp 0
+push local 1
+push constant 1
+sub
+pop local 1
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return

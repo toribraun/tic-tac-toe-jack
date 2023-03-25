@@ -2,10 +2,12 @@ class Board {
     field Array boardArray;
     field int boardX, boardY, boardSize, boardPixelSize, lineThickness, cellPixelSize;
     field int totalCellCount, freeCellCount;
+    field int signSize;
 
     constructor Board new(int size) {		
         let boardX = 200;
         let boardY = 60;
+        let signSize = 16;
 		let boardSize = size;
 		let boardPixelSize = 120;
 		let lineThickness = 2;
@@ -52,5 +54,53 @@ class Board {
 		return;
 	}
 
+    method void drawMove(int row, int col, boolean isCross) {
+		var int xl,yt;
+		let xl = colToX(col) + ((cellPixelSize-signSize)/2);
+		let yt = rowToY(row) + ((cellPixelSize-signSize)/2);
+        if (isCross) {
+            do drawCross(xl,yt);
+        } else {
+            do drawZero(xl,yt);
+        }
+		return;
+	}
+
+	method int rowToY(int r) {
+		return boardY + (r*cellPixelSize);
+	}
+	
+	method int colToX(int c) {
+		return boardX + (c*cellPixelSize);
+	}
+
+	method void drawCross(int x, int y) {
+		var int t,i;
+		let t = 1;
+		let i = t-1;
+		while(~(i<0)) {
+			do Screen.drawLine(x,y+signSize-i,x+signSize-i,y);
+			do Screen.drawLine(x+i,y+signSize,x+signSize,y+i);
+			
+			do Screen.drawLine(x+i,y,x+signSize,y+signSize-i);
+			do Screen.drawLine(x,y+i,x+signSize-i,y+signSize);
+			
+			let i = i-1;
+		}
+		return;
+	}
+
+	method void drawZero(int x, int y) {
+		var int rOut,rIn,t;
+		let t = 2;
+		let rOut = signSize/2;
+		let rIn = rOut-t;
+		
+		do Screen.drawCircle(x+rOut,y+rOut,rOut);
+		do Screen.setColor(false);
+		do Screen.drawCircle(x+rOut,y+rOut,rIn);
+		do Screen.setColor(true);
+		return;
+	}   
 
 }

@@ -1,0 +1,34 @@
+class Cross {
+	field int width, height;
+	
+	constructor Cross new() {
+		let width = 16;
+	    let height = 16;
+		
+		return this;
+	}
+
+    method int getHeight() {
+		return height;
+	}
+	
+	method int getWidth() {
+		return width;
+	}
+
+	method void draw(int x, int y) {
+		var int t,i;
+		let t = 1;
+		let i = t-1;
+		while(~(i<0)) {
+			do Screen.drawLine(x,y+height-i,x+width-i,y);
+			do Screen.drawLine(x+i,y+height,x+width,y+i);
+			
+			do Screen.drawLine(x+i,y,x+width,y+height-i);
+			do Screen.drawLine(x,y+i,x+width-i,y+height);
+			
+			let i = i-1;
+		}
+		return;
+	}
+}
