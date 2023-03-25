@@ -2,9 +2,13 @@ class Main {
 
 	function void main() {
         var Board board;
+        // var int size;
+        // let size = MessageHandler.readDigitInput("Input board size.");
 		do Screen.clearScreen();
-        let board = Board.new(9);
+        let board = Board.new(3);
         do board.drawBoard();
+        do board.drawMove(1, 1, true);
+        do board.drawMove(1, 1, false);
 		
 		return;
 	}

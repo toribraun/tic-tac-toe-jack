@@ -1,11 +1,24 @@
 function Main.main 1
 call Screen.clearScreen 0
 pop temp 0
-push constant 9
+push constant 3
 call Board.new 1
 pop local 0
 push local 0
 call Board.drawBoard 1
+pop temp 0
+push local 0
+push constant 1
+push constant 1
+push constant 0
+not
+call Board.drawMove 4
+pop temp 0
+push local 0
+push constant 1
+push constant 1
+push constant 0
+call Board.drawMove 4
 pop temp 0
 push constant 0
 return
