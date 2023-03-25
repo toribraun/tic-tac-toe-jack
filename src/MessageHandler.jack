@@ -1,0 +1,48 @@
+class MessageHandler {
+    static int startCursorRow, startCursorColumn, zeroCode, nineCode, enterCode, emptyMessage;
+
+    function void init() {
+		let startCursorRow = 1;
+		let startCursorColumn = 1;
+        let zeroCode = 47;
+        let nineCode = 58;
+        let enterCode = 228; // boolshit, need in change
+        let emptyMessage = "                                                 "
+		return;
+	}
+
+    function void eraseMessages() {
+        var String emptyString;
+		do Output.moveCursor(startCursorRow, startCursorColumn);
+		do Output.printString(emptyMessage);
+		return;
+    }
+
+    function void showMessage(String messageToShow) {
+		do MessageHandler.eraseMessages();
+		do Output.moveCursor(startCursorRow, startCursorColumn);
+		do Output.printString(messageToShow);
+		do messageToShow.dispose();
+    }
+
+    // Reads player input. Input should be a digit or Enter.
+    function int readDigitOrEnterInput(String gameMessage) {
+		var char character;
+		do MessageHandler.eraseMessage();		
+		while(true) {
+			do Output.moveCursor(startCursorRow, startCursorColumn);
+			do Output.printString(gameMessage);
+			let character = Keyboard.readChar();
+
+			if(((character>zeroCode) & (character<nineCode)) | character=enterCode) {
+				do gameMessage.dispose();
+				return character-48;
+			}
+            else {
+                do Output.printString("Don't use illegal symbols! Only digits (0 to 9) and Enter allowed!")
+                do gameMessage.dispose();
+            }
+		}
+		return 0;
+	}
+}
