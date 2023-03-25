@@ -9,14 +9,14 @@ class MessageHandler {
         let zeroCode = 47;
         let nineCode = 58;
         let enterCode = 128;
-        let emptyMessage = "                                                 ";
 		return;
 	}
 
     function void eraseMessages() {
-        var String emptyString;
+        var String emptyString = "                             ";
 		do Output.moveCursor(startCursorRow, startCursorColumn);
-		do Output.printString(emptyMessage);
+		do Output.printString(emptyString);
+		do emptyString.dispose();
 		return;
     }
 
