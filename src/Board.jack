@@ -1,0 +1,56 @@
+class Board {
+    field Array boardArray;
+    field int boardX, boardY, boardSize, boardPixelSize, lineThickness, cellPixelSize;
+    field int totalCellCount, freeCellCount;
+
+    constructor Board new(int size) {		
+        let boardX = 200;
+        let boardY = 60;
+		let boardSize = size;
+		let boardPixelSize = 120;
+		let lineThickness = 2;
+		let cellPixelSize = boardPixelSize/size;
+        let totalCellCount = size*size;
+		let boardArray = Array.new(totalCellCount);
+		return this;
+	}
+
+    method void dispose() {
+		do Screen.setColor(false);
+		do Screen.drawRectangle(boardX, boardY, boardX+boardPixelSize, boardY+boardPixelSize);
+		do Screen.setColor(true);
+		do Memory.deAlloc(boardArray);
+		return;
+	}
+	
+	method void clearBoard() {
+		var int i;
+		let freeCellCount = totalCellCount;
+		while(i<totalCellCount) {
+			let boardArray[i] = 0;
+			let i = i + 1;
+		}
+		return;
+	}
+
+	method void drawBoard() {
+		var int offset;
+        var int i;
+		let offset = 1;
+        let i = 1;
+
+        while(i<boardSize) {
+            // draw vertical line
+		    do Screen.drawRectangle(boardX+(i*cellPixelSize)-offset,boardY, boardX+(i*cellPixelSize)+offset,boardY+boardPixelSize);
+
+            // draw horizontal lines
+		    do Screen.drawRectangle(boardX,boardY+(i*cellPixelSize)-offset, boardX+boardPixelSize,boardY+(i*cellPixelSize)+offset);
+
+			let i = i + 1;
+		}
+
+		return;
+	}
+
+
+}

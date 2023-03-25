@@ -1,7 +1,10 @@
 class Main {
 
 	function void main() {
+        var Board board;
 		do Screen.clearScreen();
+        let board = Board.new(9);
+        do board.drawBoard();
 		
 		return;
 	}
