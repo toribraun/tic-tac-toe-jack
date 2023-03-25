@@ -42,7 +42,7 @@ class MessageHandler {
 				return character;
 			}
             else {
-                do Output.printString("Don't use illegal symbols! Only digits (0 to 9) allowed! Use them!");
+                do Output.printString("Don't use illegal symbols! Only digits (0 to 9) allowed!");
                 do gameMessage.dispose();
             }
 		}
@@ -63,7 +63,7 @@ class MessageHandler {
 				return character;
 			}
             else {
-                do Output.printString("Don't use illegal symbols! Only digits (0 to 9) allowed! Use them!");
+                do Output.printString("Don't use illegal symbols! Only digits (0 to 9) allowed!");
                 do gameMessage.dispose();
             }
 		}
