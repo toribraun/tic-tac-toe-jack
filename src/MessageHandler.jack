@@ -1,13 +1,14 @@
 class MessageHandler {
-    static int startCursorRow, startCursorColumn, zeroCode, nineCode, enterCode, emptyMessage;
+    static int startCursorRow, startCursorColumn, zeroCode, nineCode, enterCode;
+	static String emptyMessage;
 
     function void init() {
 		let startCursorRow = 1;
 		let startCursorColumn = 1;
         let zeroCode = 47;
         let nineCode = 58;
-        let enterCode = 228; // boolshit, need in change
-        let emptyMessage = "                                                 "
+        let enterCode = 128;
+        let emptyMessage = "                                                 ";
 		return;
 	}
 
@@ -23,10 +24,11 @@ class MessageHandler {
 		do Output.moveCursor(startCursorRow, startCursorColumn);
 		do Output.printString(messageToShow);
 		do messageToShow.dispose();
+		return;
     }
 
-    // Reads player input. Input should be a digit or Enter.
-    function int readDigitOrEnterInput(String gameMessage) {
+    // Reads player input. Input should be a digit.
+    function int readDigitInput(String gameMessage) {
 		var char character;
 		do MessageHandler.eraseMessage();		
 		while(true) {
@@ -34,12 +36,33 @@ class MessageHandler {
 			do Output.printString(gameMessage);
 			let character = Keyboard.readChar();
 
-			if(((character>zeroCode) & (character<nineCode)) | character=enterCode) {
+			if(((character>zeroCode) & (character<nineCode))) {
 				do gameMessage.dispose();
-				return character-48;
+				return character;
 			}
             else {
-                do Output.printString("Don't use illegal symbols! Only digits (0 to 9) and Enter allowed!")
+                do Output.printString("Don't use illegal symbols! Only digits (0 to 9) allowed! Use them!");
+                do gameMessage.dispose();
+            }
+		}
+		return 0;
+	}
+
+	// Reads player input. Input should be an Enter.
+    function int readEnterInput(String gameMessage) {
+		var char character;
+		do MessageHandler.eraseMessage();		
+		while(true) {
+			do Output.moveCursor(startCursorRow, startCursorColumn);
+			do Output.printString(gameMessage);
+			let character = Keyboard.readChar();
+
+			if(character=enterCode) {
+				do gameMessage.dispose();
+				return character;
+			}
+            else {
+                do Output.printString("Don't use illegal symbols! Only digits (0 to 9) allowed! Use them!");
                 do gameMessage.dispose();
             }
 		}
