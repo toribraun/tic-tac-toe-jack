@@ -1,5 +1,6 @@
 class MessageHandler {
-    static int startCursorRow, startCursorColumn, zeroCode, nineCode, enterCode;
+    static int startCursorRow, startCursorColumn;
+	static char zeroCode, nineCode, enterCode;
 	static String emptyMessage;
 
     function void init() {
@@ -30,7 +31,7 @@ class MessageHandler {
     // Reads player input. Input should be a digit.
     function int readDigitInput(String gameMessage) {
 		var char character;
-		do MessageHandler.eraseMessage();		
+		do MessageHandler.eraseMessages();		
 		while(true) {
 			do Output.moveCursor(startCursorRow, startCursorColumn);
 			do Output.printString(gameMessage);
@@ -51,7 +52,7 @@ class MessageHandler {
 	// Reads player input. Input should be an Enter.
     function int readEnterInput(String gameMessage) {
 		var char character;
-		do MessageHandler.eraseMessage();		
+		do MessageHandler.eraseMessages();		
 		while(true) {
 			do Output.moveCursor(startCursorRow, startCursorColumn);
 			do Output.printString(gameMessage);
