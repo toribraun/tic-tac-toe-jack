@@ -7,11 +7,11 @@ class Board {
     constructor Board new(int size) {		
         let boardX = 200;
         let boardY = 60;
-        let signSize = 16;
 		let boardSize = size;
 		let boardPixelSize = 120;
 		let lineThickness = 2;
 		let cellPixelSize = boardPixelSize/size;
+        let signSize = cellPixelSize/2;
         let totalCellCount = size*size;
 		let boardArray = Array.new(totalCellCount);
         do clearBoard();
@@ -39,24 +39,32 @@ class Board {
 	method void drawBoard() {
 		var int offset;
         var int i;
-		let offset = 1;
+		let offset = lineThickness/2;
         let i = 1;
 
         while(i<boardSize) {
             // draw vertical line
 		    do Screen.drawRectangle(boardX+(i*cellPixelSize)-offset,boardY, boardX+(i*cellPixelSize)+offset,boardY+boardPixelSize);
+            do Number.drawNumber(i, boardX + (i*cellPixelSize) - (cellPixelSize/2), boardY - 24);
 
             // draw horizontal lines
-		    do Screen.drawRectangle(boardX,boardY+(i*cellPixelSize)-offset, boardX+boardPixelSize,boardY+(i*cellPixelSize)+offset);
+            do Screen.drawRectangle(boardX,boardY+(i*cellPixelSize)-offset, boardX+boardPixelSize,boardY+(i*cellPixelSize)+offset);
+            do Number.drawNumber(i, boardX - 24, boardY + ((i-1)*cellPixelSize) + (cellPixelSize/2));
 
 			let i = i + 1;
 		}
+        
+        do Number.drawNumber(i, boardX + (i*cellPixelSize) - (cellPixelSize/2), boardY - 24);
+        do Number.drawNumber(i, boardX - 24, boardY + ((i-1)*cellPixelSize) + (cellPixelSize/2));
 
 		return;
 	}
 
     method boolean drawMove(int row, int col, boolean isCross) {
-		var int xl,yt;
+		var int xl, yt;
+
+        let row = row - 1;
+        let col = col - 1;
 
         if(~isCellFree(row, col)) {
 			return false;
@@ -71,6 +79,7 @@ class Board {
         }
 
         let boardArray[row*boardSize+col] = true;
+        let freeCellCount = freeCellCount - 1;
 
 		return true;
 	}
@@ -84,26 +93,19 @@ class Board {
 	}
 
 	method void drawCross(int x, int y) {
-		var int t,i;
-		let t = 1;
-		let i = t-1;
-		while(~(i<0)) {
-			do Screen.drawLine(x,y+signSize-i,x+signSize-i,y);
-			do Screen.drawLine(x+i,y+signSize,x+signSize,y+i);
+		do Screen.drawLine(x,y+signSize,x+signSize,y);
+		do Screen.drawLine(x,y+signSize,x+signSize,y);
 			
-			do Screen.drawLine(x+i,y,x+signSize,y+signSize-i);
-			do Screen.drawLine(x,y+i,x+signSize-i,y+signSize);
-			
-			let i = i-1;
-		}
+		do Screen.drawLine(x,y,x+signSize,y+signSize);
+		do Screen.drawLine(x,y,x+signSize,y+signSize);
+	
 		return;
 	}
 
 	method void drawZero(int x, int y) {
-		var int rOut,rIn,t;
-		let t = 2;
+		var int rOut,rIn;
 		let rOut = signSize/2;
-		let rIn = rOut-t;
+		let rIn = rOut-lineThickness;
 		
 		do Screen.drawCircle(x+rOut,y+rOut,rOut);
 		do Screen.setColor(false);
