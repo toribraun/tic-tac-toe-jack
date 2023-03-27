@@ -6,8 +6,6 @@ push constant 200
 pop this 1
 push constant 60
 pop this 2
-push constant 16
-pop this 9
 push argument 0
 pop this 3
 push constant 120
@@ -18,6 +16,10 @@ push this 4
 push argument 0
 call Math.divide 2
 pop this 6
+push this 6
+push constant 2
+call Math.divide 2
+pop this 9
 push argument 0
 push argument 0
 call Math.multiply 2
@@ -85,7 +87,9 @@ return
 function Board.drawBoard 2
 push argument 0
 pop pointer 0
-push constant 1
+push this 5
+push constant 2
+call Math.divide 2
 pop local 0
 push constant 1
 pop local 1
@@ -115,6 +119,21 @@ push this 4
 add
 call Screen.drawRectangle 4
 pop temp 0
+push local 1
+push this 1
+push local 1
+push this 6
+call Math.multiply 2
+add
+push this 6
+push constant 2
+call Math.divide 2
+sub
+push this 2
+push constant 24
+sub
+call Number.drawNumber 3
+pop temp 0
 push this 1
 push this 2
 push local 1
@@ -136,16 +155,73 @@ add
 call Screen.drawRectangle 4
 pop temp 0
 push local 1
+push this 1
+push constant 24
+sub
+push this 2
+push local 1
+push constant 1
+sub
+push this 6
+call Math.multiply 2
+add
+push this 6
+push constant 2
+call Math.divide 2
+add
+call Number.drawNumber 3
+pop temp 0
+push local 1
 push constant 1
 add
 pop local 1
 goto WHILE_EXP0
 label WHILE_END0
+push local 1
+push this 1
+push local 1
+push this 6
+call Math.multiply 2
+add
+push this 6
+push constant 2
+call Math.divide 2
+sub
+push this 2
+push constant 24
+sub
+call Number.drawNumber 3
+pop temp 0
+push local 1
+push this 1
+push constant 24
+sub
+push this 2
+push local 1
+push constant 1
+sub
+push this 6
+call Math.multiply 2
+add
+push this 6
+push constant 2
+call Math.divide 2
+add
+call Number.drawNumber 3
+pop temp 0
 push constant 0
 return
 function Board.drawMove 2
 push argument 0
 pop pointer 0
+push argument 1
+push constant 1
+sub
+pop argument 1
+push argument 2
+push constant 1
+sub
+pop argument 2
 push pointer 0
 push argument 1
 push argument 2
@@ -207,6 +283,10 @@ pop temp 0
 pop pointer 1
 push temp 0
 pop that 0
+push this 8
+push constant 1
+sub
+pop this 8
 push constant 0
 not
 return
@@ -228,39 +308,20 @@ push this 6
 call Math.multiply 2
 add
 return
-function Board.drawCross 2
+function Board.drawCross 0
 push argument 0
 pop pointer 0
-push constant 1
-pop local 0
-push local 0
-push constant 1
-sub
-pop local 1
-label WHILE_EXP0
-push local 1
-push constant 0
-lt
-not
-not
-if-goto WHILE_END0
 push argument 1
 push argument 2
 push this 9
 add
-push local 1
-sub
 push argument 1
 push this 9
 add
-push local 1
-sub
 push argument 2
 call Screen.drawLine 4
 pop temp 0
 push argument 1
-push local 1
-add
 push argument 2
 push this 9
 add
@@ -268,57 +329,39 @@ push argument 1
 push this 9
 add
 push argument 2
-push local 1
-add
-call Screen.drawLine 4
-pop temp 0
-push argument 1
-push local 1
-add
-push argument 2
-push argument 1
-push this 9
-add
-push argument 2
-push this 9
-add
-push local 1
-sub
 call Screen.drawLine 4
 pop temp 0
 push argument 1
 push argument 2
-push local 1
-add
 push argument 1
 push this 9
 add
-push local 1
-sub
 push argument 2
 push this 9
 add
 call Screen.drawLine 4
 pop temp 0
-push local 1
-push constant 1
-sub
-pop local 1
-goto WHILE_EXP0
-label WHILE_END0
+push argument 1
+push argument 2
+push argument 1
+push this 9
+add
+push argument 2
+push this 9
+add
+call Screen.drawLine 4
+pop temp 0
 push constant 0
 return
-function Board.drawZero 3
+function Board.drawZero 2
 push argument 0
 pop pointer 0
-push constant 2
-pop local 2
 push this 9
 push constant 2
 call Math.divide 2
 pop local 0
 push local 0
-push local 2
+push this 5
 sub
 pop local 1
 push argument 1
