@@ -1,5 +1,5 @@
 function Board.new 0
-push constant 10
+push constant 11
 call Memory.alloc 1
 pop pointer 0
 push constant 200
@@ -27,6 +27,8 @@ pop this 7
 push this 7
 call Array.new 1
 pop this 0
+push constant 0
+pop this 10
 push pointer 0
 call Board.clearBoard 1
 pop temp 0
@@ -270,6 +272,10 @@ push local 1
 call Board.drawZero 3
 pop temp 0
 label IF_END1
+push argument 3
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
 push argument 1
 push this 3
 call Math.multiply 2
@@ -277,12 +283,26 @@ push argument 2
 add
 push this 0
 add
-push constant 0
-not
+push constant 1
 pop temp 0
 pop pointer 1
 push temp 0
 pop that 0
+goto IF_END2
+label IF_FALSE2
+push argument 1
+push this 3
+call Math.multiply 2
+push argument 2
+add
+push this 0
+add
+push constant 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+label IF_END2
 push this 8
 push constant 1
 sub
@@ -403,5 +423,340 @@ push this 0
 add
 pop pointer 1
 push that 0
+push constant 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
 not
+return
+label IF_FALSE0
+push constant 0
+return
+function Board.isRowWin 2
+push argument 0
+pop pointer 0
+push constant 0
+pop local 0
+push argument 1
+push constant 1
+sub
+pop argument 1
+push argument 1
+push this 3
+call Math.multiply 2
+push this 0
+add
+pop pointer 1
+push that 0
+push constant 1
+eq
+pop local 1
+label WHILE_EXP0
+push local 0
+push this 3
+lt
+not
+if-goto WHILE_END0
+push local 1
+push argument 1
+push this 3
+call Math.multiply 2
+push local 0
+add
+push this 0
+add
+pop pointer 1
+push that 0
+push constant 1
+eq
+not
+and
+push local 1
+not
+push argument 1
+push this 3
+call Math.multiply 2
+push local 0
+add
+push this 0
+add
+pop pointer 1
+push that 0
+push constant 2
+eq
+not
+and
+or
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+return
+label IF_FALSE0
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+not
+return
+function Board.isColumnWin 2
+push argument 0
+pop pointer 0
+push constant 0
+pop local 0
+push argument 1
+push constant 1
+sub
+pop argument 1
+push argument 1
+push this 0
+add
+pop pointer 1
+push that 0
+push constant 1
+eq
+pop local 1
+label WHILE_EXP0
+push local 0
+push this 3
+lt
+not
+if-goto WHILE_END0
+push local 1
+push local 0
+push this 3
+call Math.multiply 2
+push argument 1
+add
+push this 0
+add
+pop pointer 1
+push that 0
+push constant 1
+eq
+not
+and
+push local 1
+not
+push local 0
+push this 3
+call Math.multiply 2
+push argument 1
+add
+push this 0
+add
+pop pointer 1
+push that 0
+push constant 2
+eq
+not
+and
+or
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+return
+label IF_FALSE0
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+not
+return
+function Board.isMainDiagonalWin 2
+push argument 0
+pop pointer 0
+push constant 0
+pop local 0
+push argument 1
+push constant 1
+sub
+pop argument 1
+push argument 2
+push constant 1
+sub
+pop argument 2
+push constant 0
+push this 0
+add
+pop pointer 1
+push that 0
+push constant 1
+eq
+pop local 1
+push argument 1
+push argument 2
+eq
+not
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+return
+label IF_FALSE0
+label WHILE_EXP0
+push local 0
+push this 3
+lt
+not
+if-goto WHILE_END0
+push local 1
+push local 0
+push this 3
+call Math.multiply 2
+push local 0
+add
+push this 0
+add
+pop pointer 1
+push that 0
+push constant 1
+eq
+not
+and
+push local 1
+not
+push local 0
+push this 3
+call Math.multiply 2
+push local 0
+add
+push this 0
+add
+pop pointer 1
+push that 0
+push constant 2
+eq
+not
+and
+or
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 0
+return
+label IF_FALSE1
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+not
+return
+function Board.isAntiDiagonalWin 2
+push argument 0
+pop pointer 0
+push constant 0
+pop local 0
+push argument 1
+push constant 1
+sub
+pop argument 1
+push argument 2
+push constant 1
+sub
+pop argument 2
+push this 3
+push constant 1
+sub
+push this 0
+add
+pop pointer 1
+push that 0
+push constant 1
+eq
+pop local 1
+push argument 1
+push this 3
+eq
+push argument 2
+sub
+push constant 1
+sub
+not
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+return
+label IF_FALSE0
+label WHILE_EXP0
+push local 0
+push this 3
+lt
+not
+if-goto WHILE_END0
+push local 1
+push local 0
+push this 3
+call Math.multiply 2
+push this 3
+add
+push local 0
+sub
+push constant 1
+sub
+push this 0
+add
+pop pointer 1
+push that 0
+push constant 1
+eq
+not
+and
+push local 1
+not
+push local 0
+push this 3
+call Math.multiply 2
+push this 3
+add
+push local 0
+sub
+push constant 1
+sub
+push this 0
+add
+pop pointer 1
+push that 0
+push constant 2
+eq
+not
+and
+or
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 0
+return
+label IF_FALSE1
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+not
+return
+function Board.drawWinRow 0
+push argument 0
+pop pointer 0
+push constant 0
+return
+function Board.drawWinColumn 0
+push argument 0
+pop pointer 0
+push constant 0
 return

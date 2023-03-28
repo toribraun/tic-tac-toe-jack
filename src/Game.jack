@@ -13,9 +13,12 @@ class Game {
         while (~stepIsCorrect) {
             let row = MessageHandler.readDigitInput("Press number of row you want to take step");
             let column = MessageHandler.readDigitInput("Press number of column you want to take step");
-            let stepIsCorrect = board.isCellFree(row, column);
+            let stepIsCorrect = board.isCellFree(row - 1, column - 1);
         }
         do board.drawMove(row, column, isCross);
+        if (board.isAntiDiagonalWin(row, column)) {
+            do MessageHandler.readDigitInput("Win");
+        }
         return 0;
     }
 

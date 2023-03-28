@@ -3,6 +3,7 @@ class Board {
     field int boardX, boardY, boardSize, boardPixelSize, lineThickness, cellPixelSize;
     field int totalCellCount, freeCellCount;
     field int signSize;
+	field boolean isWin;
 
     constructor Board new(int size) {		
         let boardX = 200;
@@ -13,7 +14,8 @@ class Board {
 		let cellPixelSize = boardPixelSize/size;
         let signSize = cellPixelSize/2;
         let totalCellCount = size*size;
-		let boardArray = Array.new(totalCellCount);
+		let boardArray = Array.new(totalCellCount);   // 0 - empty, 1 - cross, 2 - zero
+		let isWin = false;
         do clearBoard();
 		return this;
 	}
@@ -30,7 +32,7 @@ class Board {
 		var int i;
 		let freeCellCount = totalCellCount;
 		while(i<totalCellCount) {
-			let boardArray[i] = false;
+			let boardArray[i] = 0;
 			let i = i + 1;
 		}
 		return;
@@ -78,7 +80,12 @@ class Board {
             do drawZero(xl,yt);
         }
 
-        let boardArray[row*boardSize+col] = true;
+		if (isCross) {
+			let boardArray[row*boardSize+col] = 1;
+		} else {
+			let boardArray[row*boardSize+col] = 2;
+		}
+
         let freeCellCount = freeCellCount - 1;
 
 		return true;
@@ -115,7 +122,106 @@ class Board {
 	}   
 
 	method boolean isCellFree(int row, int col) {
-		return ~boardArray[row*boardSize+col];
+		if (boardArray[row*boardSize+col] = 0) {
+			return true;
+		} 
+		return false;
 	}
 
+	method boolean isRowWin(int row) {
+		var int i;
+		var boolean isCrossFirst;
+		let i = 0;
+		let row = row - 1;
+		let isCrossFirst = (boardArray[row*boardSize] = 1);
+
+		while (i < boardSize) {
+			if ((isCrossFirst & ~(boardArray[row*boardSize+i] = 1)) | 
+				(~isCrossFirst & ~(boardArray[row*boardSize+i] = 2))) {
+				return false;
+			} 
+			let i = i + 1;
+		}
+		return true;
+	}
+
+	method boolean isColumnWin(int column) {
+		var int i;
+		var boolean isCrossFirst;
+		let i = 0;
+		let column = column - 1;
+		let isCrossFirst = (boardArray[column] = 1);
+
+		while (i < boardSize) {
+			if ((isCrossFirst & ~(boardArray[i*boardSize+column] = 1)) | 
+				(~isCrossFirst & ~(boardArray[i*boardSize+column] = 2))) {
+				return false;
+			} 
+			let i = i + 1;
+		}
+
+		return true;
+	}
+
+	method boolean isMainDiagonalWin(int row, int column) {
+		var int i;
+		var boolean isCrossFirst;
+		let i = 0;
+		let row = row - 1;
+		let column = column - 1;
+		let isCrossFirst = (boardArray[0] = 1);
+
+		if (~(row = column)) {
+			return false;
+		}
+
+		while (i < boardSize) {
+			if ((isCrossFirst & ~(boardArray[i*boardSize+i] = 1)) | 
+				(~isCrossFirst & ~(boardArray[i*boardSize+i] = 2))) {
+				return false;
+			} 
+			let i = i + 1;
+		}
+
+		return true;
+	}
+
+	method boolean isAntiDiagonalWin(int row, int column) {
+		var int i;
+		var boolean isCrossFirst;
+		let i = 0;
+		let row = row - 1;
+		let column = column - 1;
+		let isCrossFirst = (boardArray[boardSize-1] = 1);
+
+		if (~(row = boardSize-column-1)) {
+			return false;
+		}
+
+		while (i < boardSize) {
+			if ((isCrossFirst & ~(boardArray[i*boardSize+boardSize-i-1] = 1)) |
+				(~isCrossFirst & ~(boardArray[i*boardSize+boardSize-i-1] = 2))) {
+				return false;
+			} 
+			let i = i + 1;
+		}
+
+		return true;
+	}
+
+	method void drawWinRow(int row) {
+		return;
+	}
+
+	method void drawWinColumn(int column) {
+		return;
+	}
+
+	method void drawWinMainDiagonal() {
+		return;
+	}
+
+	method void drawWinAntiDiagona() {
+		return;
+	}
 }
