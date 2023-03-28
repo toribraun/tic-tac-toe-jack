@@ -3,7 +3,380 @@ call MessageHandler.init 0
 pop temp 0
 push constant 0
 return
+function Game.isRowWin 4
+push argument 0
+pop pointer 0
+push static 0
+call Board.getBoardSize 1
+pop local 1
+push static 0
+call Board.getBoardArray 1
+pop local 3
+push constant 0
+pop local 0
+push argument 1
+push constant 1
+sub
+pop argument 1
+push argument 1
+push local 1
+call Math.multiply 2
+push local 3
+add
+pop pointer 1
+push that 0
+push constant 1
+eq
+pop local 2
+label WHILE_EXP0
+push local 0
+push local 1
+lt
+not
+if-goto WHILE_END0
+push local 2
+push argument 1
+push local 1
+call Math.multiply 2
+push local 0
+add
+push local 3
+add
+pop pointer 1
+push that 0
+push constant 1
+eq
+not
+and
+push local 2
+not
+push argument 1
+push local 1
+call Math.multiply 2
+push local 0
+add
+push local 3
+add
+pop pointer 1
+push that 0
+push constant 2
+eq
+not
+and
+or
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+return
+label IF_FALSE0
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push static 0
+push argument 1
+call Board.drawWinRow 2
+pop temp 0
+push constant 0
+not
+return
+function Game.isColumnWin 4
+push argument 0
+pop pointer 0
+push static 0
+call Board.getBoardSize 1
+pop local 1
+push static 0
+call Board.getBoardArray 1
+pop local 3
+push constant 0
+pop local 0
+push argument 1
+push local 3
+add
+pop pointer 1
+push that 0
+push constant 1
+eq
+pop local 2
+label WHILE_EXP0
+push local 0
+push local 1
+lt
+not
+if-goto WHILE_END0
+push local 2
+push local 0
+push local 1
+call Math.multiply 2
+push argument 1
+add
+push local 3
+add
+pop pointer 1
+push that 0
+push constant 1
+eq
+not
+and
+push local 2
+not
+push local 0
+push local 1
+call Math.multiply 2
+push argument 1
+add
+push local 3
+add
+pop pointer 1
+push that 0
+push constant 2
+eq
+not
+and
+or
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+return
+label IF_FALSE0
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push static 0
+push argument 1
+call Board.drawWinColumn 2
+pop temp 0
+push constant 0
+not
+return
+function Game.isMainDiagonalWin 4
+push argument 0
+pop pointer 0
+push static 0
+call Board.getBoardSize 1
+pop local 1
+push static 0
+call Board.getBoardArray 1
+pop local 3
+push constant 0
+pop local 0
+push argument 1
+push constant 1
+sub
+pop argument 1
+push argument 2
+push constant 1
+sub
+pop argument 2
+push constant 0
+push local 3
+add
+pop pointer 1
+push that 0
+push constant 1
+eq
+pop local 2
+push argument 1
+push argument 2
+eq
+not
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+return
+label IF_FALSE0
+label WHILE_EXP0
+push local 0
+push local 1
+lt
+not
+if-goto WHILE_END0
+push local 2
+push local 0
+push local 1
+call Math.multiply 2
+push local 0
+add
+push local 3
+add
+pop pointer 1
+push that 0
+push constant 1
+eq
+not
+and
+push local 2
+not
+push local 0
+push local 1
+call Math.multiply 2
+push local 0
+add
+push local 3
+add
+pop pointer 1
+push that 0
+push constant 2
+eq
+not
+and
+or
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 0
+return
+label IF_FALSE1
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push static 0
+call Board.drawWinMainDiagonal 1
+pop temp 0
+push constant 0
+not
+return
+function Game.isAntiDiagonalWin 4
+push argument 0
+pop pointer 0
+push static 0
+call Board.getBoardSize 1
+pop local 1
+push static 0
+call Board.getBoardArray 1
+pop local 3
+push constant 0
+pop local 0
+push argument 1
+push constant 1
+sub
+pop argument 1
+push argument 2
+push constant 1
+sub
+pop argument 2
+push local 1
+push constant 1
+sub
+push local 3
+add
+pop pointer 1
+push that 0
+push constant 1
+eq
+pop local 2
+push argument 1
+push local 1
+eq
+push argument 2
+sub
+push constant 1
+sub
+not
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+return
+label IF_FALSE0
+label WHILE_EXP0
+push local 0
+push local 1
+lt
+not
+if-goto WHILE_END0
+push local 2
+push local 0
+push local 1
+call Math.multiply 2
+push local 1
+add
+push local 0
+sub
+push constant 1
+sub
+push local 3
+add
+pop pointer 1
+push that 0
+push constant 1
+eq
+not
+and
+push local 2
+not
+push local 0
+push local 1
+call Math.multiply 2
+push local 1
+add
+push local 0
+sub
+push constant 1
+sub
+push local 3
+add
+pop pointer 1
+push that 0
+push constant 2
+eq
+not
+and
+or
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 0
+return
+label IF_FALSE1
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push static 0
+call Board.drawWinAntiDiagonal 1
+pop temp 0
+push constant 0
+not
+return
+function Game.isWin 0
+push argument 0
+pop pointer 0
+push pointer 0
+push argument 1
+push argument 2
+call Game.isAntiDiagonalWin 3
+push pointer 0
+push argument 1
+push argument 2
+call Game.isMainDiagonalWin 3
+or
+push pointer 0
+push argument 2
+call Game.isColumnWin 2
+or
+push pointer 0
+push argument 1
+call Game.isRowWin 2
+or
+return
 function Game.takeAStep 3
+push argument 0
+pop pointer 0
 push constant 0
 pop local 0
 label WHILE_EXP0
@@ -203,13 +576,13 @@ label WHILE_END0
 push static 0
 push local 1
 push local 2
-push argument 0
+push argument 1
 call Board.drawMove 4
 pop temp 0
-push static 0
+push pointer 0
 push local 1
 push local 2
-call Board.isWin 3
+call Game.isWin 3
 return
 function Game.startGame 4
 push argument 0
@@ -296,8 +669,8 @@ call String.appendChar 2
 push constant 33
 call String.appendChar 2
 call MessageHandler.readDigitInput 1
-pop local 0
-push local 0
+pop local 1
+push local 1
 call Board.new 1
 pop static 0
 push static 0
@@ -313,10 +686,11 @@ push local 2
 not
 not
 if-goto WHILE_END1
+push pointer 0
 push local 3
-call Game.takeAStep 1
-pop local 1
-push local 1
+call Game.takeAStep 2
+pop local 0
+push local 0
 if-goto IF_TRUE0
 goto IF_FALSE0
 label IF_TRUE0
@@ -398,7 +772,7 @@ call String.appendChar 2
 call MessageHandler.readEnterInput 1
 pop temp 0
 label IF_FALSE0
-push local 1
+push local 0
 not
 push static 0
 call Board.isFieldOccupied 1
