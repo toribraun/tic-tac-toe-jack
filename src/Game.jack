@@ -1,0 +1,38 @@
+class Game {
+    static Board board;
+
+    function void init() {
+		do MessageHandler.init();
+		return;
+	}
+
+    function int takeAStep(boolean isCross) {
+        var boolean stepIsCorrect;
+        var int row, column;
+        let stepIsCorrect = false;
+        while (~stepIsCorrect) {
+            let row = MessageHandler.readDigitInput("Press number of row you want to take step");
+            let column = MessageHandler.readDigitInput("Press number of column you want to take step");
+            let stepIsCorrect = board.isCellFree(row, column);
+        }
+        do board.drawMove(row, column, isCross);
+        return 0;
+    }
+
+    method void startGame() {
+        var int boardSize, stepResult;
+        var boolean gameOver, isCross;
+        while (true) {
+            let boardSize = MessageHandler.readDigitInput("Press number of board size and start!");
+            let board = Board.new(boardSize);
+            do board.drawBoard();
+            let gameOver = false;
+            let isCross = true;
+            while (~gameOver) {
+                let stepResult = Game.takeAStep(isCross);
+                isCross = ~isCross;
+            }
+        }
+        return;
+    }
+}
