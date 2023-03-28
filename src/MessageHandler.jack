@@ -13,7 +13,7 @@ class MessageHandler {
 	}
 
     function void eraseMessages() {
-        let emptyString = "                             ";
+        let emptyString = "                                                        ";
 		do Output.moveCursor(startCursorRow, startCursorColumn);
 		do Output.printString(emptyString);
 		do emptyString.dispose();
@@ -42,6 +42,7 @@ class MessageHandler {
 				return character-48;
 			}
             else {
+				do MessageHandler.eraseMessages();
                 do Output.printString("Don't use illegal symbols! Only digits (0 to 9) allowed!");
                 do gameMessage.dispose();
             }
@@ -63,7 +64,8 @@ class MessageHandler {
 				return character;
 			}
             else {
-                do Output.printString("Don't use illegal symbols! Only digits (0 to 9) allowed!");
+				do MessageHandler.eraseMessages();		
+                do Output.printString("Don't use illegal symbols! Only Enter allowed!");
                 do gameMessage.dispose();
             }
 		}

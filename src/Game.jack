@@ -30,7 +30,7 @@ class Game {
             let isCross = true;
             while (~gameOver) {
                 let stepResult = Game.takeAStep(isCross);
-                isCross = ~isCross;
+                let isCross = ~isCross;
             }
         }
         return;
