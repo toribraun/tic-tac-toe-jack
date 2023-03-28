@@ -5,12 +5,12 @@ class Board {
     field int signSize;
 
     constructor Board new(int size) {		
-        let boardX = 200;
+        let boardX = 160;
         let boardY = 60;
 		let boardSize = size;
-		let boardPixelSize = 120;
+		let boardPixelSize = 180;
 		let lineThickness = 2;
-		let cellPixelSize = boardPixelSize/size;
+		let cellPixelSize = boardPixelSize / size;
         let signSize = cellPixelSize / 2;
         let totalCellCount = size*size;
 		let boardArray = Array.new(totalCellCount);   // 0 - empty, 1 - cross, 2 - zer
@@ -46,32 +46,32 @@ class Board {
         while(i<boardSize) {
             // draw vertical line
 		    do Screen.drawRectangle(boardX+(i*cellPixelSize)-offset,boardY, boardX+(i*cellPixelSize)+offset,boardY+boardPixelSize);
-            do Number.drawNumber(i, boardX + (i*cellPixelSize) - (cellPixelSize/2), boardY - 24);
+            do Number.drawNumber(i, boardX + (i*(cellPixelSize+offset)) - (cellPixelSize/2) - 8, boardY - 24);
 
             // draw horizontal lines
             do Screen.drawRectangle(boardX,boardY+(i*cellPixelSize)-offset, boardX+boardPixelSize,boardY+(i*cellPixelSize)+offset);
-            do Number.drawNumber(i, boardX - 24, boardY + ((i-1)*cellPixelSize) + (cellPixelSize/2));
+            do Number.drawNumber(i, boardX - 18, boardY + (i*cellPixelSize) - (cellPixelSize/2) - 8);
 
 			let i = i + 1;
 		}
         
-        do Number.drawNumber(i, boardX + (i*cellPixelSize) - (cellPixelSize/2), boardY - 24);
-        do Number.drawNumber(i, boardX - 24, boardY + ((i-1)*cellPixelSize) + (cellPixelSize/2));
+        do Number.drawNumber(i, boardX + (i*cellPixelSize) - (cellPixelSize/2) - 8, boardY - 24);
+        do Number.drawNumber(i, boardX - 18, boardY + (i*cellPixelSize) - (cellPixelSize/2) - 8);
 
 		return;
 	}
 
-    method boolean drawMove(int row, int col, boolean isCross) {
+    method boolean drawMove(int row, int column, boolean isCross) {
 		var int xl, yt;
 
         let row = row - 1;
-        let col = col - 1;
+        let column = column - 1;
 
-        if(~isCellFree(row, col)) {
+        if(~isCellFree(row, column)) {
 			return false;
 		} 
 
-		let xl = colToX(col) + ((cellPixelSize-signSize)/2);
+		let xl = colToX(column) + ((cellPixelSize-signSize)/2);
 		let yt = rowToY(row) + ((cellPixelSize-signSize)/2);
         if (isCross) {
             do drawCross(xl,yt);
@@ -80,9 +80,9 @@ class Board {
         }
 
 		if (isCross) {
-			let boardArray[row*boardSize+col] = 1;
+			let boardArray[row*boardSize+column] = 1;
 		} else {
-			let boardArray[row*boardSize+col] = 2;
+			let boardArray[row*boardSize+column] = 2;
 		}
 
         let freeCellCount = freeCellCount - 1;
@@ -90,12 +90,12 @@ class Board {
 		return true;
 	}
 
-	method int rowToY(int r) {
-		return boardY + (r*cellPixelSize);
+	method int rowToY(int row) {
+		return boardY + (row*cellPixelSize);
 	}
 	
-	method int colToX(int c) {
-		return boardX + (c*cellPixelSize);
+	method int colToX(int col) {
+		return boardX + (col*cellPixelSize);
 	}
 
 	method void drawCross(int x, int y) {
@@ -120,8 +120,8 @@ class Board {
 		return;
 	}   
 
-	method boolean isCellFree(int row, int col) {
-		if (boardArray[row*boardSize+col] = 0) {
+	method boolean isCellFree(int row, int column) {
+		if (boardArray[row*boardSize+column] = 0) {
 			return true;
 		} 
 		return false;
@@ -239,7 +239,7 @@ class Board {
 		let i = lineThickness - 1;
 		while(~(i < 0)) {
 			do Screen.drawLine(x + i, y, x + boardPixelSize, y + boardPixelSize - i);
-			do Screen.drawLine(x, y + i, x + boardPixelSize - i,y + boardPixelSize);
+			do Screen.drawLine(x, y + i, x + boardPixelSize - i, y + boardPixelSize);
 			let i = i - 1;
 		}
 		return;
@@ -251,9 +251,8 @@ class Board {
 		let y = boardY;
 		let i = lineThickness - 1;
 		while(~(i < 0)) {
-			do Screen.drawLine(x, y + boardSize - i,x + boardSize - i, y);
+			do Screen.drawLine(x, y + boardSize - i, x + boardSize - i, y);
 			do Screen.drawLine(x + i, y + boardSize, x + boardSize, y + i);
-			
 			let i = i - 1;
 		}
 		return;
