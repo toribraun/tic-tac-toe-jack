@@ -12,7 +12,7 @@ class Board {
 		let boardPixelSize = 120;
 		let lineThickness = 2;
 		let cellPixelSize = boardPixelSize/size;
-        let signSize = cellPixelSize/2;
+        let signSize = cellPixelSize / 2;
         let totalCellCount = size*size;
 		let boardArray = Array.new(totalCellCount);   // 0 - empty, 1 - cross, 2 - zero
 		let isWin = false;
@@ -136,8 +136,8 @@ class Board {
 		let isCrossFirst = (boardArray[row*boardSize] = 1);
 
 		while (i < boardSize) {
-			if ((isCrossFirst & ~(boardArray[row*boardSize+i] = 1)) | 
-				(~isCrossFirst & ~(boardArray[row*boardSize+i] = 2))) {
+			if ((isCrossFirst & ~(boardArray[row * boardSize + i] = 1)) | 
+				(~isCrossFirst & ~(boardArray[row * boardSize + i] = 2))) {
 				return false;
 			} 
 			let i = i + 1;
@@ -153,8 +153,8 @@ class Board {
 		let isCrossFirst = (boardArray[column] = 1);
 
 		while (i < boardSize) {
-			if ((isCrossFirst & ~(boardArray[i*boardSize+column] = 1)) | 
-				(~isCrossFirst & ~(boardArray[i*boardSize+column] = 2))) {
+			if ((isCrossFirst & ~(boardArray[i * boardSize + column] = 1)) | 
+				(~isCrossFirst & ~(boardArray[i * boardSize + column] = 2))) {
 				return false;
 			} 
 			let i = i + 1;
@@ -176,8 +176,8 @@ class Board {
 		}
 
 		while (i < boardSize) {
-			if ((isCrossFirst & ~(boardArray[i*boardSize+i] = 1)) | 
-				(~isCrossFirst & ~(boardArray[i*boardSize+i] = 2))) {
+			if ((isCrossFirst & ~(boardArray[i * boardSize + i] = 1)) | 
+				(~isCrossFirst & ~(boardArray[i * boardSize + i] = 2))) {
 				return false;
 			} 
 			let i = i + 1;
@@ -199,8 +199,8 @@ class Board {
 		}
 
 		while (i < boardSize) {
-			if ((isCrossFirst & ~(boardArray[i*boardSize+boardSize-i-1] = 1)) |
-				(~isCrossFirst & ~(boardArray[i*boardSize+boardSize-i-1] = 2))) {
+			if ((isCrossFirst & ~(boardArray[i * boardSize+boardSize - i - 1] = 1)) |
+				(~isCrossFirst & ~(boardArray[i * boardSize+boardSize - i - 1] = 2))) {
 				return false;
 			} 
 			let i = i + 1;
@@ -210,18 +210,45 @@ class Board {
 	}
 
 	method void drawWinRow(int row) {
+		var int y, offset;
+		let y = rowToY(row - 1) + (cellPixelSize / 2); 
+		let offset = lineThickness / 2;
+		do Screen.drawRectangle(boardX, y - offset, boardX + boardPixelSize, y + offset);
 		return;
 	}
-
+	
 	method void drawWinColumn(int column) {
+		var int x, offset;
+		let x = colToX(column - 1) + (cellPixelSize / 2); 
+		let offset = lineThickness / 2;
+		do Screen.drawRectangle(x - offset, boardY, x + offset, boardY + boardPixelSize);
 		return;
 	}
 
 	method void drawWinMainDiagonal() {
+		var int i, x, y;
+		let x = boardX;
+		let y = boardY;
+		let i = lineThickness - 1;
+		while(~(i < 0)) {
+			do Screen.drawLine(x + i, y, x + boardPixelSize, y + boardPixelSize - i);
+			do Screen.drawLine(x, y + i, x + boardPixelSize - i,y + boardPixelSize);
+			let i = i - 1;
+		}
 		return;
 	}
 
-	method void drawWinAntiDiagona() {
+	method void drawWinAntiDiagonal() {
+		var int i, x, y;
+		let x = boardX;
+		let y = boardY;
+		let i = lineThickness - 1;
+		while(~(i < 0)) {
+			do Screen.drawLine(x, y + boardSize - i,x + boardSize - i, y);
+			do Screen.drawLine(x + i, y + boardSize, x + boardSize, y + i);
+			
+			let i = i - 1;
+		}
 		return;
 	}
 }

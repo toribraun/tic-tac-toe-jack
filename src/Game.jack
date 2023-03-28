@@ -16,7 +16,20 @@ class Game {
             let stepIsCorrect = board.isCellFree(row - 1, column - 1);
         }
         do board.drawMove(row, column, isCross);
+        if (board.isRowWin(row)) {
+            do board.drawWinRow(row);
+            do MessageHandler.readDigitInput("Win");
+        }
+        if (board.isColumnWin(column)) {
+            do board.drawWinColumn(column);
+            do MessageHandler.readDigitInput("Win");
+        }
+        if (board.isMainDiagonalWin(row, column)) {
+            do board.drawWinMainDiagonal();
+            do MessageHandler.readDigitInput("Win");
+        }
         if (board.isAntiDiagonalWin(row, column)) {
+            do board.drawWinAntiDiagonal();
             do MessageHandler.readDigitInput("Win");
         }
         return 0;
