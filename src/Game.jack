@@ -124,8 +124,6 @@ class Game {
             let boardSize = MessageHandler.readDigitInput("Press number of board size and start!");
             let board = Board.new(boardSize);
             do board.drawBoard();
-            do board.drawWinMainDiagonal();
-            do board.drawWinAntiDiagonal();
             let gameOver = false;
             let isCross = true;
             while (~gameOver) {

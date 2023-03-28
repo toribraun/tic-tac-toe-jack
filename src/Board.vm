@@ -530,8 +530,15 @@ push this 5
 push constant 1
 sub
 pop local 0
+label WHILE_EXP0
+push local 0
+push constant 0
+lt
+not
+not
+if-goto WHILE_END0
 push local 1
-push constant 1
+push local 0
 add
 push local 2
 push local 1
@@ -540,24 +547,30 @@ add
 push local 2
 push this 4
 add
-push constant 1
+push local 0
 sub
 call Screen.drawLine 4
 pop temp 0
 push local 1
 push local 2
-push constant 1
+push local 0
 add
 push local 1
 push this 4
 add
-push constant 1
+push local 0
 sub
 push local 2
 push this 4
 add
 call Screen.drawLine 4
 pop temp 0
+push local 0
+push constant 1
+sub
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
 push constant 0
 return
 function Board.drawWinAntiDiagonal 3
@@ -571,33 +584,46 @@ push this 5
 push constant 1
 sub
 pop local 0
+label WHILE_EXP0
+push local 0
+push constant 0
+lt
+not
+not
+if-goto WHILE_END0
 push local 1
 push local 2
-push this 3
+push this 4
 add
-push constant 1
+push local 0
 sub
 push local 1
-push this 3
+push this 4
 add
-push constant 1
+push local 0
 sub
 push local 2
 call Screen.drawLine 4
 pop temp 0
 push local 1
-push constant 1
+push local 0
 add
 push local 2
-push this 3
+push this 4
 add
 push local 1
-push this 3
+push this 4
 add
 push local 2
-push constant 1
+push local 0
 add
 call Screen.drawLine 4
 pop temp 0
+push local 0
+push constant 1
+sub
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
 push constant 0
 return

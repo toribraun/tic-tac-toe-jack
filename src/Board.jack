@@ -174,8 +174,8 @@ class Board {
 		let y = boardY;
 		let i = lineThickness - 1;
 		while(~(i < 0)) {
-			do Screen.drawLine(x, y + boardSize - i, x + boardSize - i, y);
-			do Screen.drawLine(x + i, y + boardSize, x + boardSize, y + i);
+			do Screen.drawLine(x, y + boardPixelSize - i, x + boardPixelSize - i, y);
+			do Screen.drawLine(x + i, y + boardPixelSize, x + boardPixelSize, y + i);
 			let i = i - 1;
 		}
 		return;
