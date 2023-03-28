@@ -3,7 +3,6 @@ class Board {
     field int boardX, boardY, boardSize, boardPixelSize, lineThickness, cellPixelSize;
     field int totalCellCount, freeCellCount;
     field int signSize;
-	field boolean isWin;
 
     constructor Board new(int size) {		
         let boardX = 200;
@@ -14,8 +13,7 @@ class Board {
 		let cellPixelSize = boardPixelSize/size;
         let signSize = cellPixelSize / 2;
         let totalCellCount = size*size;
-		let boardArray = Array.new(totalCellCount);   // 0 - empty, 1 - cross, 2 - zero
-		let isWin = false;
+		let boardArray = Array.new(totalCellCount);   // 0 - empty, 1 - cross, 2 - zer
         do clearBoard();
 		return this;
 	}
@@ -30,6 +28,7 @@ class Board {
 	
 	method void clearBoard() {
 		var int i;
+		do Screen.clearScreen();
 		let freeCellCount = totalCellCount;
 		while(i<totalCellCount) {
 			let boardArray[i] = 0;
@@ -128,6 +127,10 @@ class Board {
 		return false;
 	}
 
+	method boolean isFieldOccupied() {
+		return freeCellCount=0;
+	}
+
 	method boolean isRowWin(int row) {
 		var int i;
 		var boolean isCrossFirst;
@@ -207,6 +210,10 @@ class Board {
 		}
 
 		return true;
+	}
+
+	method boolean isWin(int row, int column) {
+		return isAntiDiagonalWin(row, column) | isMainDiagonalWin(row, column) | isColumnWin(column) | isRowWin(row);
 	}
 
 	method void drawWinRow(int row) {
