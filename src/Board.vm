@@ -1,5 +1,5 @@
 function Board.new 0
-push constant 11
+push constant 10
 call Memory.alloc 1
 pop pointer 0
 push constant 200
@@ -27,8 +27,6 @@ pop this 7
 push this 7
 call Array.new 1
 pop this 0
-push constant 0
-pop this 10
 push pointer 0
 call Board.clearBoard 1
 pop temp 0
@@ -62,6 +60,8 @@ return
 function Board.clearBoard 1
 push argument 0
 pop pointer 0
+call Screen.clearScreen 0
+pop temp 0
 push this 7
 pop this 8
 label WHILE_EXP0
@@ -434,6 +434,13 @@ return
 label IF_FALSE0
 push constant 0
 return
+function Board.isFieldOccupied 0
+push argument 0
+pop pointer 0
+push this 8
+push constant 0
+eq
+return
 function Board.isRowWin 2
 push argument 0
 pop pointer 0
@@ -750,12 +757,43 @@ label WHILE_END0
 push constant 0
 not
 return
+function Board.isWin 0
+push argument 0
+pop pointer 0
+push pointer 0
+push argument 1
+push argument 2
+call Board.isAntiDiagonalWin 3
+push pointer 0
+push argument 1
+push argument 2
+call Board.isMainDiagonalWin 3
+or
+push pointer 0
+push argument 2
+call Board.isColumnWin 2
+or
+push pointer 0
+push argument 1
+call Board.isRowWin 2
+or
+return
 function Board.drawWinRow 0
 push argument 0
 pop pointer 0
 push constant 0
 return
 function Board.drawWinColumn 0
+push argument 0
+pop pointer 0
+push constant 0
+return
+function Board.drawWinMainDiagonal 0
+push argument 0
+pop pointer 0
+push constant 0
+return
+function Board.drawWinAntiDiagona 0
 push argument 0
 pop pointer 0
 push constant 0

@@ -20,14 +20,6 @@ class MessageHandler {
 		return;
     }
 
-    function void showMessage(String messageToShow) {
-		do MessageHandler.eraseMessages();
-		do Output.moveCursor(startCursorRow, startCursorColumn);
-		do Output.printString(messageToShow);
-		do messageToShow.dispose();
-		return;
-    }
-
     // Reads player input. Input should be a digit.
     function int readDigitInput(String gameMessage) {
 		var char character;
@@ -41,11 +33,6 @@ class MessageHandler {
 				do gameMessage.dispose();
 				return character-48;
 			}
-            else {
-				do MessageHandler.eraseMessages();
-                do Output.printString("Don't use illegal symbols! Only digits (0 to 9) allowed!");
-                do gameMessage.dispose();
-            }
 		}
 		return 0;
 	}
@@ -63,11 +50,6 @@ class MessageHandler {
 				do gameMessage.dispose();
 				return character;
 			}
-            else {
-				do MessageHandler.eraseMessages();		
-                do Output.printString("Don't use illegal symbols! Only Enter allowed!");
-                do gameMessage.dispose();
-            }
 		}
 		return 0;
 	}

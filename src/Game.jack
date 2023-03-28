@@ -6,7 +6,7 @@ class Game {
 		return;
 	}
 
-    function int takeAStep(boolean isCross) {
+    function boolean takeAStep(boolean isCross) {
         var boolean stepIsCorrect;
         var int row, column;
         let stepIsCorrect = false;
@@ -16,10 +16,7 @@ class Game {
             let stepIsCorrect = board.isCellFree(row - 1, column - 1);
         }
         do board.drawMove(row, column, isCross);
-        if (board.isAntiDiagonalWin(row, column)) {
-            do MessageHandler.readDigitInput("Win");
-        }
-        return 0;
+        return board.isWin(row, column);
     }
 
     method void startGame() {
@@ -33,8 +30,18 @@ class Game {
             let isCross = true;
             while (~gameOver) {
                 let stepResult = Game.takeAStep(isCross);
+                if (stepResult) {
+                    let gameOver = true;
+                    do MessageHandler.readEnterInput("Win! Press ENTER to start new game!");
+                }
+
+                if ((~stepResult) & (board.isFieldOccupied())) {
+                    let gameOver = true;
+                    do MessageHandler.readEnterInput("Dead heat! Press ENTER to start new game!");
+                }
                 let isCross = ~isCross;
             }
+            do board.clearBoard();
         }
         return;
     }
