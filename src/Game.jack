@@ -6,7 +6,105 @@ class Game {
 		return;
 	}
 
-    function boolean takeAStep(boolean isCross) {
+    method boolean isRowWin(int row) {
+		var int i, boardSize;
+		var boolean isCrossFirst;
+        var Array boardArray;
+        let boardSize = board.getBoardSize();
+        let boardArray = board.getBoardArray();
+		let i = 0;
+		let row = row - 1;
+        
+		let isCrossFirst = (boardArray[row*boardSize] = 1);
+
+		while (i < boardSize) {
+			if ((isCrossFirst & ~(boardArray[row*boardSize+i] = 1)) | 
+				(~isCrossFirst & ~(boardArray[row*boardSize+i] = 2))) {
+				return false;
+			} 
+			let i = i + 1;
+		}
+        do board.drawWinRow(row);
+		return true;
+	}
+
+	method boolean isColumnWin(int column) {
+		var int i, boardSize;
+		var boolean isCrossFirst;
+        var Array boardArray;
+        let boardSize = board.getBoardSize();
+        let boardArray = board.getBoardArray();
+		let i = 0;
+		let isCrossFirst = (boardArray[column] = 1);
+
+		while (i < boardSize) {
+			if ((isCrossFirst & ~(boardArray[i*boardSize+column] = 1)) | 
+				(~isCrossFirst & ~(boardArray[i*boardSize+column] = 2))) {
+				return false;
+			} 
+			let i = i + 1;
+		}
+        do board.drawWinColumn(column);
+		return true;
+	}
+
+	method boolean isMainDiagonalWin(int row, int column) {
+		var int i, boardSize;
+		var boolean isCrossFirst;
+        var Array boardArray;
+        let boardSize = board.getBoardSize();
+        let boardArray = board.getBoardArray();
+		let i = 0;
+		let row = row - 1;
+		let column = column - 1;
+		let isCrossFirst = (boardArray[0] = 1);
+
+		if (~(row = column)) {
+			return false;
+		}
+
+		while (i < boardSize) {
+			if ((isCrossFirst & ~(boardArray[i*boardSize+i] = 1)) | 
+				(~isCrossFirst & ~(boardArray[i*boardSize+i] = 2))) {
+				return false;
+			} 
+			let i = i + 1;
+		}
+        do board.drawWinMainDiagonal();
+		return true;
+	}
+
+	method boolean isAntiDiagonalWin(int row, int column) {
+		var int i, boardSize;
+		var boolean isCrossFirst;
+        var Array boardArray;
+        let boardSize = board.getBoardSize();
+        let boardArray = board.getBoardArray();
+		let i = 0;
+		let row = row - 1;
+		let column = column - 1;
+		let isCrossFirst = (boardArray[boardSize-1] = 1);
+
+		if (~(row = boardSize-column-1)) {
+			return false;
+		}
+
+		while (i < boardSize) {
+			if ((isCrossFirst & ~(boardArray[i*boardSize+boardSize-i-1] = 1)) |
+				(~isCrossFirst & ~(boardArray[i*boardSize+boardSize-i-1] = 2))) {
+				return false;
+			} 
+			let i = i + 1;
+		}
+        do board.drawWinAntiDiagonal();
+		return true;
+	}
+
+    method boolean isWin(int row, int column) {
+        return isAntiDiagonalWin(row, column) | isMainDiagonalWin(row, column) | isColumnWin(column) | isRowWin(row);
+    }
+
+    method boolean takeAStep(boolean isCross) {
         var boolean stepIsCorrect;
         var int row, column;
         let stepIsCorrect = false;
@@ -16,11 +114,11 @@ class Game {
             let stepIsCorrect = board.isCellFree(row - 1, column - 1);
         }
         do board.drawMove(row, column, isCross);
-        return board.isWin(row, column);
+        return isWin(row, column);
     }
 
     method void startGame() {
-        var int boardSize, stepResult;
+        var int stepResult, boardSize;
         var boolean gameOver, isCross;
         while (true) {
             let boardSize = MessageHandler.readDigitInput("Press number of board size and start!");
@@ -31,7 +129,7 @@ class Game {
             let gameOver = false;
             let isCross = true;
             while (~gameOver) {
-                let stepResult = Game.takeAStep(isCross);
+                let stepResult = takeAStep(isCross);
                 if (stepResult) {
                     let gameOver = true;
                     do MessageHandler.readEnterInput("Win! Press ENTER to start new game!");
