@@ -24,7 +24,7 @@ class Game {
 			} 
 			let i = i + 1;
 		}
-        do board.drawWinRow(row);
+        do board.drawWinRow(row + 1);
 		return true;
 	}
 
@@ -35,6 +35,7 @@ class Game {
         let boardSize = board.getBoardSize();
         let boardArray = board.getBoardArray();
 		let i = 0;
+        let column = column - 1;
 		let isCrossFirst = (boardArray[column] = 1);
 
 		while (i < boardSize) {
@@ -44,7 +45,7 @@ class Game {
 			} 
 			let i = i + 1;
 		}
-        do board.drawWinColumn(column);
+        do board.drawWinColumn(column + 1);
 		return true;
 	}
 
