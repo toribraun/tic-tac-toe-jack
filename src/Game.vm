@@ -399,7 +399,7 @@ push local 0
 not
 not
 if-goto WHILE_END0
-push constant 57
+push constant 52
 call String.new 1
 push constant 80
 call String.appendChar 2
@@ -483,23 +483,13 @@ push constant 101
 call String.appendChar 2
 push constant 112
 call String.appendChar 2
-push constant 32
-call String.appendChar 2
-push constant 111
-call String.appendChar 2
-push constant 114
+push constant 46
 call String.appendChar 2
 push constant 32
 call String.appendChar 2
 push constant 48
 call String.appendChar 2
-push constant 32
-call String.appendChar 2
-push constant 116
-call String.appendChar 2
-push constant 111
-call String.appendChar 2
-push constant 32
+push constant 45
 call String.appendChar 2
 push constant 114
 call String.appendChar 2
@@ -526,7 +516,7 @@ label IF_TRUE0
 push constant 2
 return
 label IF_FALSE0
-push constant 60
+push constant 55
 call String.new 1
 push constant 80
 call String.appendChar 2
@@ -616,23 +606,13 @@ push constant 101
 call String.appendChar 2
 push constant 112
 call String.appendChar 2
-push constant 32
-call String.appendChar 2
-push constant 111
-call String.appendChar 2
-push constant 114
+push constant 46
 call String.appendChar 2
 push constant 32
 call String.appendChar 2
 push constant 48
 call String.appendChar 2
-push constant 32
-call String.appendChar 2
-push constant 116
-call String.appendChar 2
-push constant 111
-call String.appendChar 2
-push constant 32
+push constant 45
 call String.appendChar 2
 push constant 114
 call String.appendChar 2

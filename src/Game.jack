@@ -113,11 +113,11 @@ class Game {
         var int row, column;
         let stepIsCorrect = false;
         while (~stepIsCorrect) {
-            let row = MessageHandler.readDigitInput("Press number of row you want to take step or 0 to restart");
+            let row = MessageHandler.readDigitInput("Press number of row you want to take step. 0-restart");
             if (row=0) {
                 return 2;
             }
-            let column = MessageHandler.readDigitInput("Press number of column you want to take step or 0 to restart");
+            let column = MessageHandler.readDigitInput("Press number of column you want to take step. 0-restart");
             if (column=0) {
                 return 2;
             }
