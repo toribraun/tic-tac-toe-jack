@@ -158,7 +158,7 @@ class Game {
                 }
                 let isCross = ~isCross;
             }
-            do board.clearBoard();
+            do board.dispose();
         }
         return;
     }

@@ -19,10 +19,9 @@ class Board {
 	}
 
     method void dispose() {
-		do Screen.setColor(false);
-		do Screen.drawRectangle(boardX, boardY, boardX+boardPixelSize, boardY+boardPixelSize);
-		do Screen.setColor(true);
+		do Screen.clearScreen();
 		do Memory.deAlloc(boardArray);
+		do Memory.deAlloc(this);
 		return;
 	}
 
