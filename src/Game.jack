@@ -35,7 +35,7 @@ class Game {
         let boardSize = board.getBoardSize();
         let boardArray = board.getBoardArray();
 		let i = 0;
-        let column = column - 1;
+		let column = column - 1;
 		let isCrossFirst = (boardArray[column] = 1);
 
 		while (i < boardSize) {
@@ -101,17 +101,26 @@ class Game {
 		return true;
 	}
 
-    method boolean isWin(int row, int column) {
-        return isAntiDiagonalWin(row, column) | isMainDiagonalWin(row, column) | isColumnWin(column) | isRowWin(row);
+    method int isWin(int row, int column) {
+        if (isAntiDiagonalWin(row, column) | isMainDiagonalWin(row, column) | isColumnWin(column) | isRowWin(row)) {
+            return 1;
+        }
+        return 0;
     }
 
-    method boolean takeAStep(boolean isCross) {
+    method int takeAStep(boolean isCross) {
         var boolean stepIsCorrect;
         var int row, column;
         let stepIsCorrect = false;
         while (~stepIsCorrect) {
-            let row = MessageHandler.readDigitInput("Press number of row you want to take step");
-            let column = MessageHandler.readDigitInput("Press number of column you want to take step");
+            let row = MessageHandler.readDigitInput("Press number of row you want to take step or 0 to restart");
+            if (row=0) {
+                return 2;
+            }
+            let column = MessageHandler.readDigitInput("Press number of column you want to take step or 0 to restart");
+            if (column=0) {
+                return 2;
+            }
             let stepIsCorrect = board.isCellFree(row - 1, column - 1);
         }
         do board.drawMove(row, column, isCross);
@@ -129,12 +138,15 @@ class Game {
             let isCross = true;
             while (~gameOver) {
                 let stepResult = takeAStep(isCross);
-                if (stepResult) {
+                if (stepResult=2) {
+                    let gameOver = true;
+                }
+                if (stepResult=1) {
                     let gameOver = true;
                     do MessageHandler.readEnterInput("Win! Press ENTER to start new game!");
                 }
 
-                if ((~stepResult) & (board.isFieldOccupied())) {
+                if ((stepResult=0) & (board.isFieldOccupied())) {
                     let gameOver = true;
                     do MessageHandler.readEnterInput("Dead heat! Press ENTER to start new game!");
                 }
