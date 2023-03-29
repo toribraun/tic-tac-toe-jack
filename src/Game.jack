@@ -137,6 +137,12 @@ class Game {
             let gameOver = false;
             let isCross = true;
             while (~gameOver) {
+                if (isCross) {
+                    do MessageHandler.showWhoseTurn("Now it's X turn!");
+                }
+                else {
+                    do MessageHandler.showWhoseTurn("Now it's O turn!");
+                }
                 let stepResult = takeAStep(isCross);
                 if (stepResult=2) {
                     let gameOver = true;

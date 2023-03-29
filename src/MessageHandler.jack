@@ -53,4 +53,20 @@ class MessageHandler {
 		}
 		return 0;
 	}
+
+	function void EraseShowWhoseTurn() {
+		let emptyString = "                                                 ";
+		do Output.moveCursor(22, 7);
+		do Output.printString(emptyString);
+		do emptyString.dispose();
+		return;
+	}
+
+	function void showWhoseTurn(String messageToShow) {
+		do MessageHandler.EraseShowWhoseTurn();
+		do Output.moveCursor(22, 7);
+		do Output.printString(messageToShow);
+		do messageToShow.dispose();
+		return;
+	}
 }
